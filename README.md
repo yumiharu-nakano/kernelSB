@@ -1,33 +1,76 @@
-# A Kernel-Based Method for Schrödinger Bridges
+# Bimodal 1D Gaussian SDE Experiments
 
-[![arXiv](https://img.shields.io/badge/arXiv-2310.14522-b31b1b.svg)](https://arxiv.org/abs/2310.14522)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+This repository contains code for experiments related to stochastic differential equations (SDEs) and MMD-based penalty methods, as presented in [Your Paper Title](https://arxiv.org/abs/2310.14522).
 
-This repository contains the official implementation of the paper:
+## Project Structure
 
-**"A Kernel-Based Method for Schrödinger Bridges"**  
-Yumiharu Nakano, arXiv:2310.14522  
-https://arxiv.org/abs/2310.14522
+```
+.
+├── bimodal_1d_gauss_rev2.py   # Core implementation of SDE and MMD penalty
+├── run_experiment.py          # Script to run training experiments
+├── requirements.txt           # Python dependencies
+├── README.md                  # Project documentation
+└── results/                   # (Optional) Directory for saving experiment results
+```
 
----
+## Installation
 
-## Overview
+Clone the repository and install the required dependencies:
 
-This code provides a **kernel-based numerical method for Schrödinger bridge problems** using  
-- Hilbert space embeddings of probability measures,  
-- Maximum Mean Discrepancy (MMD) penalty terms, and  
-- neural stochastic differential equations (neural SDEs).  
+```bash
+git clone https://github.com/username/bimodal-1d-gauss-sde.git
+cd bimodal-1d-gauss-sde
+pip install -r requirements.txt
+```
 
-The experiments here reproduce the main results reported in the paper.
+*Replace `username` with your GitHub username.*
 
----
+## Usage
+
+Run the experiment with default settings:
+```bash
+python run_experiment.py
+```
+
+You can also customize the number of epochs, learning rate, or batch size:
+```bash
+python run_experiment.py --num_epochs 500 --lr 5e-4 --batch_size 1024
+```
+
+After training, the script will generate plots in the `results/` folder.
 
 ## Requirements
 
-The code has been tested with **Python 3.10**.  
-Install the dependencies with:
+The required Python packages are listed in `requirements.txt`. Key dependencies include:
+- PyTorch
+- torchsde
+- numpy
+- matplotlib
+- tqdm
 
+To install all dependencies:
 ```bash
-git clone https://github.com/username/kernelSB.git
-cd kernelSB
 pip install -r requirements.txt
+```
+
+## Results
+
+Sample histograms of generated data are saved in the `results/` directory after training.  
+You can modify the plotting function in `bimodal_1d_gauss_rev2.py` for custom visualizations.
+
+## Citation
+
+If you use this code in your research, please cite our paper:
+
+```
+@article{YourBibKey,
+  title={Your Paper Title},
+  author={Your Name and Coauthors},
+  journal={arXiv preprint arXiv:2310.14522},
+  year={2023}
+}
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
