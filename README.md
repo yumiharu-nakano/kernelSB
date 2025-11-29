@@ -6,7 +6,7 @@ This repository contains code for experiments related to stochastic differential
 
 ```
 .
-├── bimodal_1d_gauss_rev2.py   # Core implementation of SDE and MMD penalty
+├── bimodal_1d_gauss.py   # Core implementation of SDE and MMD penalty
 ├── run_experiment.py          # Script to run training experiments
 ├── requirements.txt           # Python dependencies
 ├── README.md                  # Project documentation
@@ -56,7 +56,7 @@ pip install -r requirements.txt
 ## Results
 
 Sample histograms of generated data are saved in the `results/` directory after training.  
-You can modify the plotting function in `bimodal_1d_gauss_rev2.py` for custom visualizations.
+You can modify the plotting function in `bimodal_1d_gauss.py` for custom visualizations.
 
 ## Citation
 
