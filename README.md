@@ -6,7 +6,7 @@ This repository contains code for experiments related to stochastic differential
 
 ```
 .
-├── bimodal_1d_gauss.py   # Core implementation of SDE and MMD penalty
+├── bimodal_1d_gauss.py        # Core implementation of SDE and MMD penalty
 ├── run_experiment.py          # Script to run training experiments
 ├── requirements.txt           # Python dependencies
 ├── README.md                  # Project documentation
