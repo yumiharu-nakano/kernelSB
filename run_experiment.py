@@ -4,7 +4,7 @@ import numpy as np
 from tqdm import tqdm
 
 # Import functions/classes from bimodal_1d_gauss_rev2.py
-from bimodal_1d_gauss_rev2 import SDE, MmdPenalty, plot
+from bimodal_1d_gauss import SDE, MmdPenalty, plot
 
 def run_experiment(num_epochs=200, lr=1e-3, batch_size=512, seed=42):
     # Fix random seed
