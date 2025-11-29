@@ -1,6 +1,6 @@
 # Bimodal 1D Gaussian SDE Experiments
 
-This repository contains code for experiments related to stochastic differential equations (SDEs) and MMD-based penalty methods, as presented in [Your Paper Title](https://arxiv.org/abs/2310.14522).
+This repository contains code for experiments related to stochastic differential equations (SDEs) and MMD-based penalty methods, as presented in A kernel-based method for Schrödinger bridges (https://arxiv.org/abs/2310.14522).
 
 ## Project Structure
 
@@ -63,14 +63,14 @@ You can modify the plotting function in `bimodal_1d_gauss_rev2.py` for custom vi
 If you use this code in your research, please cite our paper:
 
 ```
-@article{YourBibKey,
-  title={Your Paper Title},
-  author={Your Name and Coauthors},
-  journal={arXiv preprint arXiv:2310.14522},
+@article{nak:2023kernel,
+  title={A kernel-based method for Schr{\"o}dinger bridges},
+  author={Yumiharu Nakano},
+  journal={arXiv:2310.14522[math.OC]},
   year={2023}
 }
 ```
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
