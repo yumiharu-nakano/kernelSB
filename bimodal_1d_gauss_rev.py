@@ -23,7 +23,7 @@ class SDE(nn.Module):
             nn.ReLU(),
             nn.LayerNorm(32),
             nn.Linear(32, 16),
-            nn.Tanh(),
+            nn.ReLU(),
             nn.LayerNorm(16),
             nn.Linear(16, 1)
         )
@@ -67,40 +67,51 @@ def main():
     epoch = 5000
     batch_size = 128
     state_size = 1
-    t_size = 2 ** 8
+    t_size = 256
+    t_batch_size = min(128, t_size)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    t = torch.linspace(0, 1, t_size, device=device)
+    t = torch.linspace(0.0, 1.0, t_size, device=device)
     x0 = torch.zeros(batch_size, state_size, device=device)
+
     sde = SDE().to(device)
     penalty = MmdPenalty().to(device)
     optimizer = optim.Adam(sde.parameters(), lr=1e-3)
     weight = 0.5 * 1e-2
 
     with tqdm(range(epoch)) as pbar:
-        for i in pbar:
+        for ep in pbar:
             optimizer.zero_grad()
-            x = torchsde.sdeint(sde, x0, t, method='euler')  # shape: (t_size, batch_size, state_size)
-            x_copy = x.clone()
 
-            # ベクトル化された損失計算
-            u = sde.f(t.unsqueeze(1).repeat(1, batch_size).view(-1, 1),
-                      x.view(-1, state_size))
-            loss = torch.mean(0.5 * u**2) * weight
+            x0_big = torch.zeros(2 * batch_size, state_size, device=device)
+            x_big = torchsde.sdeint(sde, x0_big, t, method='euler')  # shape: (t_size, 2*batch, state)
 
-            # MMDペナルティ
-            loss += penalty(x[-1], x_copy[-1])
+            x_a = x_big[:, :batch_size, :]
+            x_b = x_big[:, batch_size:, :]
+
+            idx = torch.randperm(t_size, device=device)[:t_batch_size]
+
+            t_sel = t[idx]
+            x_sel = x_a[idx]  
+            x_flat = x_sel.reshape(-1, state_size)
+            t_flat = t_sel.unsqueeze(1).repeat(1, batch_size).reshape(-1, 1)
+
+            u_flat = sde.f(t_flat, x_flat)
+            loss = torch.mean(u_flat ** 2) * weight
+
+            loss += penalty(x_a[-1], x_b[-1])
 
             loss.backward()
             optimizer.step()
             pbar.set_postfix({"loss": loss.item()})
 
-    # サンプル生成
+    # --- サンプル生成 & 可視化 ---
     x0p = torch.zeros(200000, state_size, device=device)
+    x0p_big = torch.zeros(2 * 200000, state_size, device=device)
     with torch.no_grad():
-        xp = torchsde.sdeint(sde, x0p, t, method='euler')
+        xp_big = torchsde.sdeint(sde, x0p_big, t, method='euler')
+    xp = xp_big[:, :200000, :].cpu().numpy()
 
-    xp = xp.cpu().numpy()
     plot(xp[0], xp[84], xp[170], xp[-1])
 
 
