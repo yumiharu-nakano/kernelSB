@@ -18,12 +18,10 @@ This repository contains code for experiments related to stochastic differential
 Clone the repository and install the required dependencies:
 
 ```bash
-git clone https://github.com/username/bimodal-1d-gauss-sde.git
-cd bimodal-1d-gauss-sde
+git clone https://github.com/yumiharu-nakano/kernelSB.git
+cd kernelSB
 pip install -r requirements.txt
 ```
-
-*Replace `username` with your GitHub username.*
 
 ## Usage
 
